@@ -19,5 +19,5 @@ AC_PROG_RANLIB
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_CONFIG_FILES([Makefile src/Makefile src/net/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile src/net/Makefile src/protobuf/Makefile])
 AC_OUTPUT

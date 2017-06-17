@@ -76,7 +76,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = src/net
+subdir = src/protobuf
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -94,10 +94,10 @@ AM_V_AR = $(am__v_AR_@AM_V@)
 am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
 am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
-libNetServer_a_AR = $(AR) $(ARFLAGS)
-libNetServer_a_LIBADD =
-am_libNetServer_a_OBJECTS = NetServer.$(OBJEXT)
-libNetServer_a_OBJECTS = $(am_libNetServer_a_OBJECTS)
+libProtoDef_a_AR = $(AR) $(ARFLAGS)
+libProtoDef_a_LIBADD =
+am_libProtoDef_a_OBJECTS = ProtoDef.pb.$(OBJEXT)
+libProtoDef_a_OBJECTS = $(am_libProtoDef_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -139,8 +139,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libNetServer_a_SOURCES)
-DIST_SOURCES = $(libNetServer_a_SOURCES)
+SOURCES = $(libProtoDef_a_SOURCES)
+DIST_SOURCES = $(libProtoDef_a_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -255,12 +255,12 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LIBRARIES = libNetServer.a
-libNetServer_a_SOURCES = NetServer.cpp NetEngine.h
+noinst_LIBRARIES = libProtoDef.a
+libProtoDef_a_SOURCES = ProtoDef.pb.cc ProtoDef.pb.h
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .cpp .o .obj
+.SUFFIXES: .cc .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -270,9 +270,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/net/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/protobuf/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign src/net/Makefile
+	  $(AUTOMAKE) --foreign src/protobuf/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -295,10 +295,10 @@ $(am__aclocal_m4_deps):
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
 
-libNetServer.a: $(libNetServer_a_OBJECTS) $(libNetServer_a_DEPENDENCIES) $(EXTRA_libNetServer_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libNetServer.a
-	$(AM_V_AR)$(libNetServer_a_AR) libNetServer.a $(libNetServer_a_OBJECTS) $(libNetServer_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libNetServer.a
+libProtoDef.a: $(libProtoDef_a_OBJECTS) $(libProtoDef_a_DEPENDENCIES) $(EXTRA_libProtoDef_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libProtoDef.a
+	$(AM_V_AR)$(libProtoDef_a_AR) libProtoDef.a $(libProtoDef_a_OBJECTS) $(libProtoDef_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libProtoDef.a
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -306,16 +306,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/NetServer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ProtoDef.pb.Po@am__quote@
 
-.cpp.o:
+.cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
 
-.cpp.obj:
+.cc.obj:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@

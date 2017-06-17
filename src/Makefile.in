@@ -91,7 +91,7 @@ CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_server_OBJECTS = main.$(OBJEXT)
 server_OBJECTS = $(am_server_OBJECTS)
-server_DEPENDENCIES = net/libNetServer.a
+server_DEPENDENCIES = net/libNetServer.a protobuf/libProtoDef.a
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -291,9 +291,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = net
+SUBDIRS = net protobuf
 server_SOURCES = main.cpp main.h
-server_LDADD = net/libNetServer.a
+server_LDADD = net/libNetServer.a protobuf/libProtoDef.a
 all: all-recursive
 
 .SUFFIXES:
@@ -307,9 +307,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Makefile
+	  $(AUTOMAKE) --foreign src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
