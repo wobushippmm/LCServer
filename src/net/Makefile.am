@@ -1,2 +1,2 @@
 noinst_LIBRARIES=libNetServer.a
-libNetServer_a_SOURCES=NetServer.cpp NetServer.h
+libNetServer_a_SOURCES=NetServer.cpp NetEngine.h
