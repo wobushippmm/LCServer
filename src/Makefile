@@ -293,7 +293,7 @@ top_builddir = ..
 top_srcdir = ..
 SUBDIRS = net protobuf
 server_SOURCES = main.cpp main.h
-server_LDADD = net/libNetServer.a protobuf/libProtoDef.a
+server_LDADD = net/libNetServer.a protobuf/libProtoDef.a -lprotobuf -lxml2
 all: all-recursive
 
 .SUFFIXES:
@@ -307,9 +307,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign src/Makefile
+	  $(AUTOMAKE) --gnu src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

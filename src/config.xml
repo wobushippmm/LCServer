@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerConfig>
+	<Define>
+		<Server id="string" type="string" address="string" port="int">
+			<Connect id="int" address="string" port="int"/>
+		</Server>
+	</Define>
+</ServerConfig>
