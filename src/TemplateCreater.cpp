@@ -39,50 +39,49 @@ void codeClass(xmlNodePtr defElem, FILE *fp){
 	fprintf(fp, "%s(){}\n", defElem->name);
 	fprintf(fp, "void setField(char *key, char *value){\n");
 	
-	xmlAttrPtr attrPtr = defElem->properies;
+	xmlAttrPtr attrPtr = defElem->properties;
 	while(attrPtr != NULL){
-		if(strcmp(attrPtr->name, "int") == 0){	
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"int") == 0){	
 			fprintf(fp, "int %s;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "long") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"long") == 0){
 			fprintf(fp, "long %s;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "float") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"float") == 0){
 			fprintf(fp, "float %s;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "double") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"double") == 0){
 			fprintf(fp, "double %s;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "string") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"string") == 0){
 			fprintf(fp, "char *%s;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "date") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"date") == 0){
 			fprintf(fp, "char *%s;\n", attrPtr->name);
 		}
 	}	
 
-	attrPtr = defElem->properies;
+	attrPtr = defElem->properties;
 	while(attrPtr != NULL){
-		if(strcmp(attrPtr->name, "int") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"int") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = atoi(value);\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "long") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"long") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = atol(value);\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "float") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"float") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = atof(value);\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "double") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"double") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = strtod(value);\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "string") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"string") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = value;\n", attrPtr->name);
 		}
-		if(strcmp(attrPtr->name, "date") == 0){
+		if(xmlStrcmp(attrPtr->name, (const xmlChar *)"date") == 0){
 			fprintf(fp, "if(strcmp(key, \"%s\") == 0) %s = value;\n", attrPtr->name);
 		}
 	}	
-	}
 }
 
 int main(int argc, char *argv[]){
@@ -134,10 +133,10 @@ int main(int argc, char *argv[]){
 			fprintf(fp, "pulbic:\n");
 			fprintf(fp, "static %s *instance;\n", pRoot->name);
 			fprintf(fp, "hash_map<int, %s> %sDic;\n", defElem->name, defElem->name); 
-			fprintf(fp, "%s(){instance = this;}\n", defElem->name);
+			fprintf(fp, "%s(){instance = this;}\n", pRoot->name);
 
 			// class
-			codeClass(defElem, fp);
+			//codeClass(defElem, fp);
 
 			// load
 			fprintf(fp, "void loadXml(const char *path){\n");
@@ -145,10 +144,10 @@ int main(int argc, char *argv[]){
 			fprintf(fp, "xmlNodePtr pRoot = xmlDocGetRootElement(pDoc);\n");
 			fprintf(fp, "xmlNodePtr elem = pRoot->xmlChildrenNOde;\n");
 			fprintf(fp, "while(elem != NULL){\n");
-			fprintf(fp, "if(strcmp(elem->name, %s) == 0){\n", defElem->name);
+			fprintf(fp, "if(xmlStrcmp(elem->name, (const xmlChar *)%s) == 0){\n", defElem->name);
 			fprintf(fp, "%s *temp = new %s();\n", defElem->name, defElem->name);
 			fprintf(fp, "temp->parseFrom(elem);\n");
-			fprintf(fp, "%sDic[temp->id] = temp;\n");
+			fprintf(fp, "%sDic[temp->id] = temp;\n", defElem->name);
 			fprintf(fp, "}\n");
 
 			fprintf(fp, "elem = elem->next;\n");	
