@@ -96,7 +96,7 @@ int main(int argc, char *argv[]){
 		strcpy(packName, argv[3]);
 	}
 
-	xmlDocPtr pDoc = xmlReadFile(argv[1], "UTF-8", XML_PARSE_RECOVER); // read xml file
+	xmlDocPtr pDoc = xmlReadFile(argv[1], "UTF-8", XML_PARSE_NOBLANKS); // read xml file
 	if(pDoc == NULL){
 		fprintf(stderr, "Read file %s error : %s %d \n", argv[1], __FUNCTION__, __LINE__);
 		return 2;
@@ -127,10 +127,20 @@ int main(int argc, char *argv[]){
 			// create cpp class
 			fprintf(fp, "#include <iostream>\n");
 			fprintf(fp, "#include <string.h>\n");
+			fprintf(fp, "#include <libxml/xpath.h>\n");
+			fprintf(fp, "#include <libxml/parser.h>\n");
+			fprintf(fp, "#include <libxml/xmlmemory.h>\n");
+			fprintf(fp, "#include <libxml/xmlstring.h>\n");
+			fprintf(fp, "#include <stdlib.h>\n");
+			fprintf(fp, "#ifdef __GNUC__\n");
+			fprintf(fp, "#include <ext/hash_map>\n");
+			fprintf(fp, "#else\n");
 			fprintf(fp, "#include <hash_map>\n");
+			fprintf(fp, "#endif\n");
+
 			fprintf(fp, "using namespace std;\n");
 			fprintf(fp, "class %s{\n", pRoot->name);
-			fprintf(fp, "pulbic:\n");
+			fprintf(fp, "public:\n");
 			fprintf(fp, "static %s *instance;\n", pRoot->name);
 			fprintf(fp, "hash_map<int, %s> %sDic;\n", defElem->name, defElem->name); 
 			fprintf(fp, "%s(){instance = this;}\n", pRoot->name);
